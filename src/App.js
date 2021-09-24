@@ -24,6 +24,18 @@ class App extends Component {
         });
       })
   }
+  compare = (a, b) => {
+    const titleA = a;
+    const titleB = b;
+
+    let comparison = 0;
+    if (titleA > titleB) {
+      comparison = 1;
+    } else if (titleA < titleB) {
+      comparison = -1;
+    }
+    return comparison;
+  }
 
   render() {
     const getItems = this.state.items.reduce((itemsSoFar, { listId, name }) => {
@@ -32,10 +44,11 @@ class App extends Component {
       return itemsSoFar;
     }, {});
 
-    const keys = Object.keys(getItems)
+    const keys = Object.keys(getItems).sort(this.compare)
+
     const values = keys.map(k => {
       return (
-        getItems[k].map((v) => {
+        getItems[k].sort(this.compare).map((v) => {
           return (
             <div>
               {k} ----- {v}
@@ -44,16 +57,16 @@ class App extends Component {
         })
       )
     })
+
     return (
       <div className="App" >
         <h1>List Items</h1>
-        <button onClick={this.showItems}>Sort By ListId</button>
-        <button onClick={this.showItems}>Sort By Name</button>
         {values}
 
       </div>
     );
   }
 }
+
 
 export default App;
