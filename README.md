@@ -22,7 +22,7 @@ Table of Contents
 </ul>
 
 ## Add Book
-![add_book](https://user-images.githubusercontent.com/33500404/109563397-b59f9f00-7aad-11eb-8f58-f4ced6935236.gif)
+![fetch_rewards](https://user-images.githubusercontent.com/33500404/134789484-98ef001f-1abe-41ed-af34-d5e92a6ee18f.gif)
 
 ## Tech-Stack
 <p>This web app makes use of the following:</p>
