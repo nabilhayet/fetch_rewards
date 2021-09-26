@@ -1,70 +1,114 @@
-# Getting Started with Create React App
+![GitHub Repo stars](https://img.shields.io/github/stars/nabilhayet/fetch_rewards) ![GitHub forks](https://img.shields.io/github/forks/nabilhayet/fetch_rewards) ![GitHub followers](https://img.shields.io/github/followers/fetch_rewards) ![Bitbucket open issues](https://img.shields.io/bitbucket/issues/nabilhayet/fetch_rewards)                                          
+                                        <h1>:bomb: Fetch Rewards :bomb: </h1>
+                                                      
+This project lets a user fetch data from an API. After fetching the data, it groups the data by listId. Then it sorts the data first by listId and then by list name. Finally it displays the items on the DOM.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<a href="https://www.youtube.com/watch?v=Nsy_Bno1IMc">Demo</a>
 
-## Available Scripts
+Table of Contents
+- [Features](#features)
+- [Tech-Stack](#tech-stack)
+- [Installing](#installing)
+- [Challenges](#challenges)
+- [Future-Implementation](#future-implementation)
+- [Code-Snippet](#code-snippet)
+                               
+## Features
+<ul>
+ <li>Fetch data from an API</li>
+ <li>Group them by listId</li>
+ <li>Sort items by listId and listName</li>
+ <li>Display data on DOM using table</li>
+</ul>
 
-In the project directory, you can run:
+## Add Book
+![add_book](https://user-images.githubusercontent.com/33500404/109563397-b59f9f00-7aad-11eb-8f58-f4ced6935236.gif)
 
-### `yarn start`
+## Tech-Stack
+<p>This web app makes use of the following:</p>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+* React
+*	HTML
+*	CSS
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
 
-### `yarn test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Installing
+<ul>
+<li> Clone this repo to your local machine git clone <this-repo-url></li>
+<li> run "yarn create react-app . "</li>
+<li> run yarn start to start the browser.</li>
+</ul>
+        
+## Challenges
+<ul>
+<li> Fetch the data properly</li>
+<li> Group the data by listId</li>
+<li> Sort the data by list Name</li>
+</ul>
 
-### `yarn build`
+## Future-Implementation
+<ul>
+<li> Add bootstrap to make the UI more appealing</li>
+</ul> 
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Code-Snippet 
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
+ componentDidMount() {
+    fetch("https://fetch-hiring.s3.amazonaws.com/hiring.json")
+      .then(response => response.json())
+      .then(items => {
+        items.forEach(element => {
+          if (element.name != "" && element.name != null) {
+            this.setState({
+              items: [...this.state.items, element]
+            })
+          }
+        });
+      })
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+  }
 
-### `yarn eject`
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```
+ renderTableData() {
+        const object = this.state.items.map(obj => {
+            const keyValuePair = Object.entries(obj)
+            const values = keyValuePair.map((entries) => {
+                const v = entries.map((e) => {
+                    let newArray = [];
+                    if (e.length > 1) {
+                        const a = e.map((arr) => {
+                            const splitArray = arr.split(" ")
+                            newArray.push(splitArray[1])
+                        })
+                        newArray = newArray.map(Number).sort(this.compare)
+                        const s = newArray.map((b) => {
+                            return (
+                                <tr>
+                                    <td><li>{`Item ${b}`}</li></td>
+                                </tr>
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+                            )
+                        })
+                        return s;
+                    }
+                    else {
+                        return (
+                            <tr>{e}</tr>
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+                        )
+                    }
+                })
+                return v;
+            })
+            return values
+        })
+        return object
+    }
+```
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
